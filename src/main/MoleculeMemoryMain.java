@@ -1,23 +1,18 @@
 package main;
 
+import controller.MenuController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import model.Board;
+import view.MenuView;
 
 /**
  * Starting point for the application.
  */
 public class MoleculeMemoryMain extends Application {
 
-    /**
-     * Width of the window.
-     */
-    public static final int WIDTH = 800;
-    /**
-     * Height of the window.
-     */
-    public static final int HEIGHT = 600;
 
     /**
      * Sets up a basic scene with no particular pane and a window title.
@@ -26,10 +21,10 @@ public class MoleculeMemoryMain extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        StackPane root = new StackPane();
-        primaryStage.setTitle("Molecule Memory");
-        primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));
-        primaryStage.show();
+
+        MenuController menuController = new MenuController();
+        menuController.show();
+
     }
 
     /**
