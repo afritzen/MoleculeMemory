@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import model.Board;
+import model.HighscoreList;
 import view.MenuView;
 
 /**

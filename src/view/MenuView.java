@@ -18,22 +18,10 @@ import javafx.stage.Stage;
 @SuppressWarnings("FieldCanBeLocal")
 public class MenuView {
 
-    /**
-     * Title for the menu screen itself.
-     */
     private static final String MENU_TITLE = "Molecule Memory";
-    /**
-     * Title for the menu's window.
-     */
     private static final String WINDOW_TITLE = "Molecule Memory - Main Menu";
-    /**
-     * Width of the window.
-     */
-    private static final int WIDTH = 800;
-    /**
-     * Height of the window.
-     */
-    private static final int HEIGHT = 600;
+    private static final int SCENE_WIDTH = 800;
+    private static final int SCENE_HEIGHT = 600;
 
 
     private Stage stage;
@@ -88,22 +76,24 @@ public class MenuView {
 
         // organize buttons
         startGameBtn = new Button("Start Game");
+        startGameBtn.setPrefWidth(150);
         optionsBtn = new Button("Options");
+        optionsBtn.setPrefWidth(150);
         quitGameBtn = new Button("Quit");
+        quitGameBtn.setPrefWidth(150);
         menuBtns = new VBox(10);
         menuBtns.setAlignment(Pos.CENTER);
         menuBtns.getChildren().addAll(startGameBtn, optionsBtn, quitGameBtn);
         gridPane.add(menuBtns, 2, 3, 2, 1);
 
 
-        scene = new Scene(gridPane, WIDTH, HEIGHT);
+        scene = new Scene(gridPane, SCENE_WIDTH, SCENE_HEIGHT);
     }
 
     /**
      * Sets a stage title and displays the main menu.
-     * @param stage the stage for the setup
      */
-    public void showMainMenu(Stage stage) {
+    public void showMainMenu() {
         stage.setTitle(WINDOW_TITLE);
         stage.setScene(scene);
         stage.show();
