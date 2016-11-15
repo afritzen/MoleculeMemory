@@ -14,7 +14,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Board;
-import model.Difficulty;
+import model.BoardInterface;
 
 /**
  * The view for the main game showing the board and a timer.
@@ -25,9 +25,14 @@ public class BoardView {
     private static final int SCENE_WIDHT = 1280;
     private static final int SCENE_HEIGHT = 850;
     private static final int PIECE_SIZE = 75;
-    private static final double GRID_WIDHT = 800/10;
+    private static final double GRID_WIDTH = 800/10;
     private static final String BOARD_TITLE = "Molecule Memory - Game";
 
+    /**
+     * Interface for interaction between model and view
+     * (in this case: board logic and board graphics).
+     */
+    private BoardInterface boardInterface;
     /**
      * Stage for the scene.
      */
@@ -68,11 +73,11 @@ public class BoardView {
     /**
      * Initializes the board and sets up the game scene.
      */
-    public BoardView() {
+    public BoardView(BoardInterface boardInterface) {
 
+        this.boardInterface = boardInterface;
         //main layout
-        board = new Board(Difficulty.EASY);
-        pieceGraphics = new Rectangle[board.getBoard().length][board.getBoard()[0].length];
+        pieceGraphics = new Rectangle[boardInterface.getBoardWidth()][boardInterface.getBoardHeight()];
         stage = new Stage();
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -83,11 +88,11 @@ public class BoardView {
 
         // graphics for the board itself
         Group boardGroup = new Group();
-        for(int i = 0; i < board.getBoard().length; i++) {
-            for(int j = 0; j < board.getBoard()[0].length; j++) {
+        for(int i = 0; i < boardInterface.getBoardWidth(); i++) {
+            for(int j = 0; j < boardInterface.getBoardHeight(); j++) {
                 Rectangle piece = new Rectangle(PIECE_SIZE, PIECE_SIZE);
-                piece.setTranslateX(i * GRID_WIDHT);
-                piece.setTranslateY(j * GRID_WIDHT);
+                piece.setTranslateX(i * GRID_WIDTH);
+                piece.setTranslateY(j * GRID_WIDTH);
                 piece.setFill(Color.LIGHTBLUE);
                 piece.setStroke(Color.BLACK);
                 boardGroup.getChildren().add(piece);

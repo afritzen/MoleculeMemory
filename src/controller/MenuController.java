@@ -28,7 +28,8 @@ public class MenuController {
         @Override
         public void handle(Event event) {
             menuView.getStage().close();
-            BoardController boardController = new BoardController(new Board(Difficulty.EASY), new BoardView());
+            Board board = new Board(Difficulty.EASY);
+            BoardController boardController = new BoardController(board, new BoardView(board));
             boardController.showBoardView();
         }
     }
