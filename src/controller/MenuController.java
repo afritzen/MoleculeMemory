@@ -2,12 +2,10 @@ package controller;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.stage.Stage;
 import model.Board;
+import model.Difficulty;
 import view.BoardView;
 import view.MenuView;
-
-import java.awt.event.ActionEvent;
 
 /**
  * Controller for the main menu view.
@@ -30,7 +28,7 @@ public class MenuController {
         @Override
         public void handle(Event event) {
             menuView.getStage().close();
-            BoardController boardController = new BoardController(new Board(10, 10), new BoardView());
+            BoardController boardController = new BoardController(new Board(Difficulty.EASY), new BoardView());
             boardController.showBoardView();
         }
     }

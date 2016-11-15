@@ -14,6 +14,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Board;
+import model.Difficulty;
 
 /**
  * The view for the main game showing the board and a timer.
@@ -70,8 +71,8 @@ public class BoardView {
     public BoardView() {
 
         //main layout
-        board = new Board(10, 10);
-        pieceGraphics = new Rectangle[board.getBoardWith()][board.getBoardHeight()];
+        board = new Board(Difficulty.EASY);
+        pieceGraphics = new Rectangle[board.getBoard().length][board.getBoard()[0].length];
         stage = new Stage();
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -82,8 +83,8 @@ public class BoardView {
 
         // graphics for the board itself
         Group boardGroup = new Group();
-        for(int i = 0; i < board.getBoardWith(); i++) {
-            for(int j = 0; j < board.getBoardHeight(); j++) {
+        for(int i = 0; i < board.getBoard().length; i++) {
+            for(int j = 0; j < board.getBoard()[0].length; j++) {
                 Rectangle piece = new Rectangle(PIECE_SIZE, PIECE_SIZE);
                 piece.setTranslateX(i * GRID_WIDHT);
                 piece.setTranslateY(j * GRID_WIDHT);

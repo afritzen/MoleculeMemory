@@ -5,56 +5,44 @@ package model;
  */
 public class Board {
 
-    private int boardWith;
-    private int boardHeight;
+    /**
+     * The board itself as a 2d array of GamePiece objects.
+     */
     private GamePiece[][] board;
-
-    public Board(int w, int h) {
-        this.boardWith = w;
-        this.boardHeight = h;
-        this.board = createBoard();
-    }
+    /**
+     * The game's current difficulty.
+     */
+    private Difficulty difficulty;
 
     /**
-     * Creates a new board consisting of different game pieces.
-     * @return the final board
+     * Assigns difficulty and generates board depending on it.
+     * @param d {@link #difficulty}
      */
-    private GamePiece[][] createBoard() {
+    public Board(Difficulty d) {
+        this.difficulty = d;
 
-        GamePiece[][] board = new GamePiece[boardWith][boardHeight];
-
-        for (int i = 0; i < boardWith; i++) {
-            for (int j = 0; j < boardHeight; j++) {
-                board[i][j] = new GamePiece(i, j);
-            }
+        switch (difficulty) {
+            case EASY:
+                this.board = BoardGenerator.generateEasyBoard();
+                break;
+            default:
+                this.board = BoardGenerator.generateEasyBoard();
         }
-        return board;
     }
 
-    /**
-     * Prints the board.
-     */
     public void printBoard() {
-        for(int i = 0; i < boardWith; i++) {
-            for (int j = 0; j < boardHeight; j++) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
                 board[i][j].printGamePiece();
             }
         }
     }
 
-    public int getBoardWith() {
-        return boardWith;
+    public GamePiece[][] getBoard() {
+        return board;
     }
 
-    public void setBoardWith(int boardWith) {
-        this.boardWith = boardWith;
-    }
-
-    public int getBoardHeight() {
-        return boardHeight;
-    }
-
-    public void setBoardHeight(int boardHeight) {
-        this.boardHeight = boardHeight;
+    public Difficulty getDifficulty() {
+        return difficulty;
     }
 }

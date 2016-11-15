@@ -17,15 +17,20 @@ public class GamePiece {
      * Determines whether the piece has been uncovered (-> picture is shown).
      */
     private boolean uncovered;
+    /**
+     * The type of molecule the game piece represents.
+     */
+    private PieceType type;
 
     /**
      * Constructor holding x- and y-coordinate of the piece.
      * @param x {@link #xPos}
      * @param y {@link #yPos}
      */
-    public GamePiece(int x, int y) {
+    public GamePiece(int x, int y, PieceType t) {
         this.xPos = x;
         this.yPos = y;
+        this.type = t;
     }
 
     /**
@@ -43,7 +48,7 @@ public class GamePiece {
      * Prints a game piece's values.
      */
     public void printGamePiece() {
-        System.out.println("xPos: " + xPos + " " + "yPos: " + yPos);
+        System.out.println("xPos: " + xPos + " " + "yPos: " + yPos + "Type: " + type);
     }
 
     public int getxPos() {
@@ -52,6 +57,10 @@ public class GamePiece {
 
     public int getyPos() {
         return yPos;
+    }
+
+    public PieceType getType() {
+        return type;
     }
 
     public boolean isUncovered() {
