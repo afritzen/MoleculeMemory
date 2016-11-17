@@ -1,4 +1,7 @@
-package model;
+package model.board;
+
+import model.GamePiece;
+import model.PieceType;
 
 import java.util.ArrayList;
 import java.util.Arrays;

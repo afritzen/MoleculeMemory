@@ -1,6 +1,6 @@
 package controller;
 
-import model.Board;
+import model.board.Board;
 import view.BoardViewInterface;
 import view.MenuView;
 

@@ -7,14 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.Board;
-import model.BoardInterface;
+import model.board.Board;
+import model.board.BoardInterface;
 
 /**
  * The view for the main game showing the board and a timer.
@@ -48,7 +46,7 @@ public class BoardView implements BoardViewInterface{
     /**
      * Array of all game piece graphics.
      */
-    private Rectangle[][] pieceGraphics;
+    private Group[][] pieceGraphics;
     /**
      * Name of the player, to be displayed in the lower left corner.
      */
@@ -77,7 +75,7 @@ public class BoardView implements BoardViewInterface{
 
         this.boardInterface = boardInterface;
         //main layout
-        pieceGraphics = new Rectangle[boardInterface.getBoardWidth()][boardInterface.getBoardHeight()];
+        pieceGraphics = new Group[boardInterface.getBoardWidth()][boardInterface.getBoardHeight()];
         stage = new Stage();
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -90,13 +88,11 @@ public class BoardView implements BoardViewInterface{
         Group boardGroup = new Group();
         for(int i = 0; i < boardInterface.getBoardWidth(); i++) {
             for(int j = 0; j < boardInterface.getBoardHeight(); j++) {
-                Rectangle piece = new Rectangle(PIECE_SIZE, PIECE_SIZE);
+                GamePieceGraphic piece = new GamePieceGraphic(boardInterface.getBoard()[i][j].getType());
                 piece.setTranslateX(i * GRID_WIDTH);
                 piece.setTranslateY(j * GRID_WIDTH);
-                piece.setFill(Color.LIGHTBLUE);
-                piece.setStroke(Color.BLACK);
                 boardGroup.getChildren().add(piece);
-                pieceGraphics[i][j] = piece;
+                pieceGraphics[i][j] = boardGroup;
             }
         }
 

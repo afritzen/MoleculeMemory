@@ -1,6 +1,6 @@
 package controller;
 
-import model.Board;
+import model.board.Board;
 import model.Difficulty;
 import view.MenuViewInterface;
 import view.BoardView;

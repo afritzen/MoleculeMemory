@@ -1,4 +1,7 @@
-package model;
+package model.board;
+
+import model.Difficulty;
+import model.GamePiece;
 
 public interface BoardInterface {
 
@@ -37,6 +40,7 @@ public interface BoardInterface {
 
     int getBoardWidth();
     int getBoardHeight();
+    GamePiece[][] getBoard();
     Difficulty getDifficulty();
 
 

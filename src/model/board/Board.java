@@ -1,4 +1,7 @@
-package model;
+package model.board;
+
+import model.Difficulty;
+import model.GamePiece;
 
 /**
  * Represents a memory board with variable size.
@@ -108,6 +111,11 @@ public class Board implements BoardInterface{
     @Override
     public int getBoardHeight() {
         return height;
+    }
+
+    @Override
+    public GamePiece[][] getBoard() {
+        return board;
     }
 
     /**
