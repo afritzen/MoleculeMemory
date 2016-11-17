@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  * some options and start the game.
  */
 @SuppressWarnings("FieldCanBeLocal")
-public class MenuView {
+public class MenuView implements MenuViewInterface{
 
     private static final String MENU_TITLE = "Molecule Memory";
     private static final String WINDOW_TITLE = "Molecule Memory - Main Menu";
@@ -91,26 +91,31 @@ public class MenuView {
     }
 
     /**
-     * Sets a stage title and displays the main menu.
+     * {@inheritDoc}
      */
+    @Override
     public void showMainMenu() {
         stage.setTitle(WINDOW_TITLE);
         stage.setScene(scene);
         stage.show();
     }
 
+    @Override
     public Stage getStage() {
         return stage;
     }
 
+    @Override
     public Button getStartGameBtn() {
         return startGameBtn;
     }
 
+    @Override
     public Button getQuitGameBtn() {
         return quitGameBtn;
     }
 
+    @Override
     public Button getOptionsBtn() {
         return optionsBtn;
     }

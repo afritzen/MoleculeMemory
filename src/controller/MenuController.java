@@ -1,37 +1,50 @@
 package controller;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import model.Board;
 import model.Difficulty;
+import view.MenuViewInterface;
 import view.BoardView;
-import view.MenuView;
 
 /**
  * Controller for the main menu view.
  */
 public class MenuController {
 
-    private MenuView menuView;
+    /**
+     * Interface for controller-view interaction.
+     */
+    private MenuViewInterface menuView;
 
-    public MenuController() {
-        this.menuView = new MenuView();
-        menuView.getStartGameBtn().setOnAction(new StartButtonEventHandler());
-    }
+    /**
+     * Assigns handlers to all buttons of the view and connects
+     * them to concrete actions.
+     * @param menuView {@link #menuView}
+     */
+    public MenuController(MenuViewInterface menuView) {
+        this.menuView = menuView;
 
-    public void show() {
-        menuView.showMainMenu();
-    }
-
-    class StartButtonEventHandler implements EventHandler {
-
-        @Override
-        public void handle(Event event) {
+        // assign handlers to buttons
+        menuView.getStartGameBtn().setOnAction((event) ->{
+            // close main menu and start a new game
             menuView.getStage().close();
             Board board = new Board(Difficulty.EASY);
             BoardController boardController = new BoardController(board, new BoardView(board));
             boardController.showBoardView();
-        }
+            event.consume();
+        });
+
+        menuView.getQuitGameBtn().setOnAction((event -> {
+            // quits the application
+            System.exit(0);
+        }));
+
+        menuView.getOptionsBtn().setOnAction(event -> {
+            //TODO
+        });
+    }
+
+    public void show() {
+        menuView.showMainMenu();
     }
 
 }

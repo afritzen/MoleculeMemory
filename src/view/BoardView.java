@@ -20,7 +20,7 @@ import model.BoardInterface;
  * The view for the main game showing the board and a timer.
  */
 @SuppressWarnings("FieldCanBeLocal")
-public class BoardView {
+public class BoardView implements BoardViewInterface{
 
     private static final int SCENE_WIDHT = 1280;
     private static final int SCENE_HEIGHT = 850;
@@ -123,8 +123,9 @@ public class BoardView {
     }
 
     /**
-     * Displays the main game.
+     * {@inheritDoc}
      */
+    @Override
     public void showGame() {
         stage.setTitle(BOARD_TITLE);
         stage = new Stage();
@@ -132,22 +133,42 @@ public class BoardView {
         stage.show();
     }
 
+    @Override
+    public void uncoverPiece() {
+        //TODO
+    }
+
+    @Override
+    public void gameCompleteMessage() {
+        //TODO
+    }
+
+    @Override
+    public void showPairMatch() {
+        //TODO
+    }
+
+    @Override
     public Button getResetBtn() {
         return resetBtn;
     }
 
+    @Override
     public Button getScoreBtn() {
         return scoreBtn;
     }
 
+    @Override
     public Button getQuitBtn() {
         return quitBtn;
     }
 
+    @Override
     public Text getPlayerName() {
         return playerName;
     }
 
+    @Override
     public Stage getStage() {
         return stage;
     }

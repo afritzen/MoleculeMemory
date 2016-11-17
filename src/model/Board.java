@@ -21,6 +21,22 @@ public class Board implements BoardInterface{
      * Height of the board.
      */
     private int height;
+    /**
+     * First uncovered piece in a draw.
+     */
+    private GamePiece uncoveredFst;
+    /**
+     * Second uncovered piece in a draw.
+     */
+    private GamePiece uncoveredSnd;
+    /**
+     * Number of total pairs that can be uncovered during one game.
+     */
+    private int numPairs;
+    /**
+     * Pairs that have already been found during the game.
+     */
+    private int pairsFound;
 
     /**
      * Assigns difficulty and generates board depending on it.
@@ -28,17 +44,25 @@ public class Board implements BoardInterface{
      */
     public Board(Difficulty d) {
         this.difficulty = d;
+        // no pieces uncovered yet, no pairs found
+        uncoveredFst = null;
+        uncoveredSnd = null;
+        pairsFound = 0;
 
+        // adapt board and further values to difficulty
         switch (difficulty) {
             case EASY:
                 this.board = BoardGenerator.generateEasyBoard();
                 this.width = 2;
                 this.height = 3;
+                this.numPairs = 3;
                 break;
+            //TODO: add more difficulties!
             default:
                 this.board = BoardGenerator.generateEasyBoard();
                 this.width = 2;
                 this.height = 3;
+                this.numPairs = 3;
                 break;
         }
     }
@@ -47,12 +71,33 @@ public class Board implements BoardInterface{
      * {@inheritDoc}
      */
     @Override
-    public void printBoard() {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                board[i][j].printGamePiece();
-            }
-        }
+    public boolean pairUncovered() {
+        return uncoveredFst != null && uncoveredSnd != null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean allUncovered() {
+        return pairsFound == numPairs;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean drawNotFinished() {
+        return uncoveredFst == null || uncoveredSnd == null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void resetPair() {
+        uncoveredFst = null;
+        uncoveredSnd = null;
     }
 
     @Override
