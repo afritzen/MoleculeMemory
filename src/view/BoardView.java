@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.board.Board;
+import model.PieceType;
 import model.board.BoardInterface;
 
 /**
@@ -22,8 +22,8 @@ public class BoardView implements BoardViewInterface{
 
     private static final int SCENE_WIDHT = 1280;
     private static final int SCENE_HEIGHT = 850;
-    private static final int PIECE_SIZE = 75;
-    private static final double GRID_WIDTH = 800/10;
+    protected static final int PIECE_SIZE = 75;
+    protected static final double GRID_WIDTH = 800/10;
     private static final String BOARD_TITLE = "Molecule Memory - Game";
 
     /**
@@ -39,10 +39,6 @@ public class BoardView implements BoardViewInterface{
      * Scene holding the board.
      */
     private Scene scene;
-    /**
-     * Board as the model.
-     */
-    private Board board;
     /**
      * Array of all game piece graphics.
      */
@@ -88,11 +84,12 @@ public class BoardView implements BoardViewInterface{
         Group boardGroup = new Group();
         for(int i = 0; i < boardInterface.getBoardWidth(); i++) {
             for(int j = 0; j < boardInterface.getBoardHeight(); j++) {
-                GamePieceGraphic piece = new GamePieceGraphic(boardInterface.getBoard()[i][j].getType());
-                piece.setTranslateX(i * GRID_WIDTH);
-                piece.setTranslateY(j * GRID_WIDTH);
-                boardGroup.getChildren().add(piece);
-                pieceGraphics[i][j] = boardGroup;
+                Group pieceGroup = new Group();
+                GamePieceGraphic piece = new GamePieceGraphic(boardInterface.getBoard()[i][j].getType(), i, j);
+                GamePieceGraphic cover = new GamePieceGraphic(PieceType.COVERED, i, j);
+                pieceGroup.getChildren().addAll(piece, cover);
+                pieceGraphics[i][j] = pieceGroup;
+                boardGroup.getChildren().add(pieceGroup);
             }
         }
 

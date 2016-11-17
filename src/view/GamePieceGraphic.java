@@ -1,5 +1,6 @@
 package view;
 
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -17,13 +18,18 @@ public class GamePieceGraphic extends Rectangle{
      * a filename is constructed and the image is loaded into the rectangle to be
      * displayed as soon as the player uncovers it in the game.
      * @param type type of the piece, used to create image
+     * @param dX offset in x-direction
+     * @param dY offset in y-direction
      */
-    public GamePieceGraphic(PieceType type) {
+    public GamePieceGraphic(PieceType type, int dX, int dY) {
 
-        Image image = new Image(getClass().getResourceAsStream("/resources/test_img.jpg"));
-        setWidth(75);
-        setHeight(75);
+        Image image = new Image(getClass().getResourceAsStream("/resources/pieces/" + type.toString()));
+        setWidth(BoardView.PIECE_SIZE);
+        setHeight(BoardView.PIECE_SIZE);
+        setTranslateX(dX * BoardView.GRID_WIDTH);
+        setTranslateY(dY * BoardView.GRID_WIDTH);
         setFill(new ImagePattern(image));
         setStroke(Color.BLACK);
+        setCursor(Cursor.HAND);
     }
 }

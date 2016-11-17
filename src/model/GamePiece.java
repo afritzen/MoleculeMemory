@@ -14,10 +14,6 @@ public class GamePiece {
      */
     private int yPos;
     /**
-     * Determines whether the piece has been uncovered (-> picture is shown).
-     */
-    private boolean uncovered;
-    /**
      * The type of molecule the game piece represents.
      */
     private PieceType type;
@@ -33,37 +29,8 @@ public class GamePiece {
         this.type = t;
     }
 
-    /**
-     * Uncovers or covers a piece dependng on current status.
-     */
-    public void uncover() {
-        if (isUncovered()) {
-            uncovered = false;
-        } else {
-            uncovered = true;
-        }
-    }
-
-    /**
-     * Prints a game piece's values.
-     */
-    public void printGamePiece() {
-        System.out.println("xPos: " + xPos + " " + "yPos: " + yPos + "Type: " + type);
-    }
-
-    public int getxPos() {
-        return xPos;
-    }
-
-    public int getyPos() {
-        return yPos;
-    }
-
     public PieceType getType() {
         return type;
     }
 
-    public boolean isUncovered() {
-        return uncovered;
-    }
 }

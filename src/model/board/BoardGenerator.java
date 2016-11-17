@@ -2,7 +2,6 @@ package model.board;
 
 import model.GamePiece;
 import model.PieceType;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,7 +28,7 @@ public class BoardGenerator {
         // create list of all pieces and shuffle it
         ArrayList<GamePiece> boardEasy = new ArrayList<>();
         boardEasy.addAll(Arrays.asList(new GamePiece(0, 0, PieceType.H2O), new GamePiece(0, 1, PieceType.H2O),
-                new GamePiece(0, 2, PieceType.NaCl), new GamePiece(1, 0, PieceType.NaCl),
+                new GamePiece(0, 2, PieceType.N2), new GamePiece(1, 0, PieceType.N2),
                 new GamePiece(1, 1, PieceType.CO2), new GamePiece(1, 2, PieceType.CO2)));
         Collections.shuffle(boardEasy);
 

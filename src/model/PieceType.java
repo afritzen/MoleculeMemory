@@ -5,7 +5,7 @@ package model;
  */
 public enum PieceType {
 
-    H2O, NaCl, CO2;
+    COVERED, H2O, N2, CO2;
 
     //TODO: create more!
 
@@ -20,12 +20,12 @@ public enum PieceType {
         switch (this) {
             case H2O:
                 return "h2o_mol.jpg";
-            case NaCl:
-                return "nacl_mol.jpg";
+            case N2:
+                return "n2_mol.jpg";
             case CO2:
                 return "co2_mol.jpg";
             default:
-                return "test_img.jpg";
+                return "cover.jpg";
         }
     }
 }
