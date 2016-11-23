@@ -1,5 +1,7 @@
 package model;
 
+import model.util.PieceType;
+
 /**
  * Class for a single memory game piece on the main board.
  */
@@ -17,6 +19,10 @@ public class GamePiece {
      * The type of molecule the game piece represents.
      */
     private PieceType type;
+    /**
+     * Determines whether the piece's image is shown.
+     */
+    private boolean covered;
 
     /**
      * Constructor holding x- and y-coordinate of the piece.
@@ -27,6 +33,19 @@ public class GamePiece {
         this.xPos = x;
         this.yPos = y;
         this.type = t;
+        covered = true;
+    }
+
+    public void uncover() {
+        covered = false;
+    }
+
+    public void cover() {
+        covered = true;
+    }
+
+    public boolean isCovered() {
+        return covered;
     }
 
     public PieceType getType() {

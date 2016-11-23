@@ -1,15 +1,21 @@
 package view;
 
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.GamePiece;
 
 public interface BoardViewInterface {
 
     /**
      * Shows the picture for an uncovered piece.
+     * @param x x-coordinate of the piece
+     * @param y y-coordinate of the piece
      */
-    void uncoverPiece();
+    void uncoverPiece(int x, int y);
 
     /**
      * Shows a message indicating that the player successfully
@@ -33,5 +39,6 @@ public interface BoardViewInterface {
     Button getQuitBtn();
     Text getPlayerName();
     Stage getStage();
+    Group getBoardGroup();
 
 }

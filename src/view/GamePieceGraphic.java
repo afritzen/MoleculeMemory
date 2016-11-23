@@ -5,7 +5,8 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import model.PieceType;
+import model.util.Constants;
+import model.util.PieceType;
 
 /**
  * Custom graphic for a game piece. Holds an image with the molecule/formula
@@ -24,10 +25,10 @@ public class GamePieceGraphic extends Rectangle{
     public GamePieceGraphic(PieceType type, int dX, int dY) {
 
         Image image = new Image(getClass().getResourceAsStream("/resources/pieces/" + type.toString()));
-        setWidth(BoardView.PIECE_SIZE);
-        setHeight(BoardView.PIECE_SIZE);
-        setTranslateX(dX * BoardView.GRID_WIDTH);
-        setTranslateY(dY * BoardView.GRID_WIDTH);
+        setWidth(Constants.PIECE_SIZE);
+        setHeight(Constants.PIECE_SIZE);
+        setTranslateX(dX * Constants.GRID_WIDTH);
+        setTranslateY(dY * Constants.GRID_WIDTH);
         setFill(new ImagePattern(image));
         setStroke(Color.BLACK);
         setCursor(Cursor.HAND);

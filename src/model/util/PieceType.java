@@ -1,4 +1,4 @@
-package model;
+package model.util;
 
 /**
  * Holds all possible types of gamepieces, named after different molecules.

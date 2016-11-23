@@ -1,6 +1,6 @@
 package model.board;
 
-import model.Difficulty;
+import model.util.Difficulty;
 import model.GamePiece;
 
 /**
@@ -74,8 +74,8 @@ public class Board implements BoardInterface{
      * {@inheritDoc}
      */
     @Override
-    public boolean pairUncovered() {
-        return uncoveredFst != null && uncoveredSnd != null;
+    public boolean pairMatches() {
+        return uncoveredFst.getType() == uncoveredSnd.getType();
     }
 
     /**
@@ -90,8 +90,8 @@ public class Board implements BoardInterface{
      * {@inheritDoc}
      */
     @Override
-    public boolean drawNotFinished() {
-        return uncoveredFst == null || uncoveredSnd == null;
+    public boolean drawFinished() {
+        return uncoveredFst != null && uncoveredSnd != null;
     }
 
     /**
@@ -101,6 +101,26 @@ public class Board implements BoardInterface{
     public void resetPair() {
         uncoveredFst = null;
         uncoveredSnd = null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPieceAt(int x, int y) {
+        return board[x][y] != null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setChosen(GamePiece piece) {
+        if(uncoveredFst != null) {
+            uncoveredSnd = piece;
+        } else {
+            uncoveredFst = piece;
+        }
     }
 
     @Override
@@ -116,14 +136,6 @@ public class Board implements BoardInterface{
     @Override
     public GamePiece[][] getBoard() {
         return board;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public GamePiece getPieceAt(int x, int y) {
-        return board[x][y];
     }
 
     @Override

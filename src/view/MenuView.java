@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.util.Constants;
 
 /**
  * The view for the game's main menu. Here the player can configure
@@ -17,11 +18,6 @@ import javafx.stage.Stage;
  */
 @SuppressWarnings("FieldCanBeLocal")
 public class MenuView implements MenuViewInterface{
-
-    private static final String MENU_TITLE = "Molecule Memory";
-    private static final String WINDOW_TITLE = "Molecule Memory - Main Menu";
-    private static final int SCENE_WIDTH = 800;
-    private static final int SCENE_HEIGHT = 600;
 
 
     private Stage stage;
@@ -70,7 +66,7 @@ public class MenuView implements MenuViewInterface{
         gridPane.setPadding(new Insets(25, 25, 25, 25));
 
         // title text
-        gameTitle = new Text(MENU_TITLE);
+        gameTitle = new Text(Constants.MENU_TITLE);
         gameTitle.setFont(Font.font("Arial", FontWeight.NORMAL, 35));
         gridPane.add(gameTitle, 2, 0);
 
@@ -87,7 +83,7 @@ public class MenuView implements MenuViewInterface{
         gridPane.add(menuBtns, 2, 3, 2, 1);
 
 
-        scene = new Scene(gridPane, SCENE_WIDTH, SCENE_HEIGHT);
+        scene = new Scene(gridPane, Constants.SCENE_WIDTH_MENU, Constants.SCENE_HEIGHT_MENU);
     }
 
     /**
@@ -95,7 +91,7 @@ public class MenuView implements MenuViewInterface{
      */
     @Override
     public void showMainMenu() {
-        stage.setTitle(WINDOW_TITLE);
+        stage.setTitle(Constants.WINDOW_TITLE_MENU);
         stage.setScene(scene);
         stage.show();
     }

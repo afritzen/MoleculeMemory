@@ -11,7 +11,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.PieceType;
+import model.util.Constants;
+import model.util.PieceType;
 import model.board.BoardInterface;
 
 /**
@@ -20,13 +21,7 @@ import model.board.BoardInterface;
 @SuppressWarnings("FieldCanBeLocal")
 public class BoardView implements BoardViewInterface{
 
-    private static final int SCENE_WIDHT = 1280;
-    private static final int SCENE_HEIGHT = 850;
-    protected static final int PIECE_SIZE = 75;
-    protected static final double GRID_WIDTH = 800/10;
-    private static final String BOARD_TITLE = "Molecule Memory - Game";
-
-    /**
+     /**
      * Interface for interaction between model and view
      * (in this case: board logic and board graphics).
      */
@@ -63,6 +58,10 @@ public class BoardView implements BoardViewInterface{
      * Button for returning to the main menu.
      */
     private Button quitBtn;
+    /**
+     * Group containing the pieces as graphics (= the board itself).
+     */
+    private Group boardGroup;
 
     /**
      * Initializes the board and sets up the game scene.
@@ -81,7 +80,7 @@ public class BoardView implements BoardViewInterface{
         //gridPane.setGridLinesVisible(true);
 
         // graphics for the board itself
-        Group boardGroup = new Group();
+        boardGroup = new Group();
         for(int i = 0; i < boardInterface.getBoardWidth(); i++) {
             for(int j = 0; j < boardInterface.getBoardHeight(); j++) {
                 Group pieceGroup = new Group();
@@ -111,8 +110,7 @@ public class BoardView implements BoardViewInterface{
         gameBtns.getChildren().addAll(resetBtn, scoreBtn, quitBtn);
         gridPane.add(gameBtns, 2, 0);
 
-        scene = new Scene(gridPane, SCENE_WIDHT, SCENE_HEIGHT);
-
+        scene = new Scene(gridPane, Constants.SCENE_WIDTH_GAME, Constants.SCENE_HEIGHT_GAME);
     }
 
     /**
@@ -120,15 +118,18 @@ public class BoardView implements BoardViewInterface{
      */
     @Override
     public void showGame() {
-        stage.setTitle(BOARD_TITLE);
+        stage.setTitle(Constants.WINDOW_TITLE_BOARD);
         stage = new Stage();
         stage.setScene(scene);
         stage.show();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void uncoverPiece() {
-        //TODO
+    public void uncoverPiece(int x, int y) {
+        pieceGraphics[x][y].getChildren().remove(1);
     }
 
     @Override
@@ -164,5 +165,10 @@ public class BoardView implements BoardViewInterface{
     @Override
     public Stage getStage() {
         return stage;
+    }
+
+    @Override
+    public Group getBoardGroup() {
+        return boardGroup;
     }
 }

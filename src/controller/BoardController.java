@@ -1,5 +1,9 @@
 package controller;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+import model.util.Constants;
+import model.GamePiece;
 import model.board.Board;
 import view.BoardViewInterface;
 import view.MenuView;
@@ -27,6 +31,7 @@ public class BoardController {
     public BoardController(Board board, BoardViewInterface boardView) {
         this.board = board;
         this.boardView = boardView;
+        boardView.getBoardGroup().setOnMouseClicked(new BoardClickHandler());
 
         // assign event handlers to buttons
         boardView.getQuitBtn().setOnAction((event) -> {
@@ -43,6 +48,43 @@ public class BoardController {
      */
     public void showBoardView() {
         boardView.showGame();
+    }
+
+    /**
+     * Inner class handling all mouse clicks occurring on the board itself.
+     */
+    private class BoardClickHandler implements EventHandler<MouseEvent> {
+
+        public void handle(MouseEvent event) {
+
+            // get mouse click position relative to piece size
+            int eventX = ((int) event.getX()) / Constants.PIECE_SIZE;
+            int eventY = ((int) event.getY()) / Constants.PIECE_SIZE;
+
+            if(board.isPieceAt(eventX, eventY) && !board.drawFinished()) {
+                GamePiece selected = board.getBoard()[eventX][eventY];
+
+                if(selected.isCovered()) {
+                    // uncover piece in model and view
+                    selected.uncover();
+                    board.setChosen(selected);
+                    boardView.uncoverPiece(eventX, eventY);
+                }
+
+                if (board.drawFinished()) {
+                    // short break before second piece is updated
+                    try {
+                        Thread.sleep(Constants.SLEEP_TIME);
+                        //TODO: remove after testing!
+                        System.out.println("draw finished!");
+                    } catch (InterruptedException ie) {
+                        System.out.println("Error! Something went wrong evaluating your draw!");
+                    }
+                }
+            }
+
+
+        }
     }
 
 
