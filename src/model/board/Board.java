@@ -101,6 +101,7 @@ public class Board implements BoardInterface{
     public void resetPair() {
         uncoveredFst = null;
         uncoveredSnd = null;
+
     }
 
     /**
@@ -108,7 +109,22 @@ public class Board implements BoardInterface{
      */
     @Override
     public boolean isPieceAt(int x, int y) {
+        if(x > width || y > height) {
+            return false;
+        }
         return board[x][y] != null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void coverChosen() {
+        if(uncoveredFst == null || uncoveredSnd == null) {
+            return;
+        }
+        board[uncoveredFst.getxPos()][uncoveredFst.getyPos()].cover();
+        board[uncoveredSnd.getxPos()][uncoveredSnd.getyPos()].cover();
     }
 
     /**
@@ -121,6 +137,24 @@ public class Board implements BoardInterface{
         } else {
             uncoveredFst = piece;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void incrPairsFound() {
+        pairsFound++;
+    }
+
+    @Override
+    public GamePiece getUncoveredFst() {
+        return uncoveredFst;
+    }
+
+    @Override
+    public GamePiece getUncoveredSnd() {
+        return uncoveredSnd;
     }
 
     @Override
@@ -142,4 +176,5 @@ public class Board implements BoardInterface{
     public Difficulty getDifficulty() {
         return difficulty;
     }
+
 }

@@ -44,6 +44,18 @@ public class BoardController {
     }
 
     /**
+     * Pauses the game for a brief moment before the final piece
+     * of a pair is uncovered.
+     */
+    private void pause() {
+        try {
+            Thread.sleep(Constants.SLEEP_TIME);
+        } catch (InterruptedException ie) {
+            System.out.println("Error! Something went wrong evaluating your draw!");
+        }
+    }
+
+    /**
      * Displays the board for a new game.
      */
     public void showBoardView() {
@@ -61,6 +73,13 @@ public class BoardController {
             int eventX = ((int) event.getX()) / Constants.PIECE_SIZE;
             int eventY = ((int) event.getY()) / Constants.PIECE_SIZE;
 
+            if(board.getUncoveredFst() != null && board.getUncoveredSnd() != null) {
+                boardView.coverPiece(board.getUncoveredFst().getxPos(), board.getUncoveredFst().getyPos());
+                boardView.coverPiece(board.getUncoveredSnd().getxPos(), board.getUncoveredSnd().getyPos());
+                board.coverChosen();
+                board.resetPair();
+            }
+
             if(board.isPieceAt(eventX, eventY) && !board.drawFinished()) {
                 GamePiece selected = board.getBoard()[eventX][eventY];
 
@@ -68,22 +87,27 @@ public class BoardController {
                     // uncover piece in model and view
                     selected.uncover();
                     board.setChosen(selected);
-                    boardView.uncoverPiece(eventX, eventY);
+                    boardView.uncoverPiece(selected.getxPos(), selected.getyPos());
                 }
 
                 if (board.drawFinished()) {
-                    // short break before second piece is updated
-                    try {
-                        Thread.sleep(Constants.SLEEP_TIME);
-                        //TODO: remove after testing!
-                        System.out.println("draw finished!");
-                    } catch (InterruptedException ie) {
-                        System.out.println("Error! Something went wrong evaluating your draw!");
+
+                    if(board.pairMatches()) {
+                        board.incrPairsFound();
+                        board.resetPair();
+                        // TODO: visualize
+                        System.out.println("You found a match!");
+                    } else {
+                        System.out.println("No match found ...");
                     }
+
+                    if(board.allUncovered()) {
+                        // TODO: visualize
+                        System.out.println("GAME OVER");
+                    }
+
                 }
             }
-
-
         }
     }
 

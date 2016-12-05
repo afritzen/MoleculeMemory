@@ -27,9 +27,9 @@ public class BoardGenerator {
 
         // create list of all pieces and shuffle it
         ArrayList<GamePiece> boardEasy = new ArrayList<>();
-        boardEasy.addAll(Arrays.asList(new GamePiece(0, 0, PieceType.H2O), new GamePiece(0, 1, PieceType.H2O),
-                new GamePiece(0, 2, PieceType.N2), new GamePiece(1, 0, PieceType.N2),
-                new GamePiece(1, 1, PieceType.CO2), new GamePiece(1, 2, PieceType.CO2)));
+        boardEasy.addAll(Arrays.asList(new GamePiece(PieceType.H2O), new GamePiece(PieceType.H2O),
+                new GamePiece(PieceType.N2), new GamePiece(PieceType.N2), new GamePiece(PieceType.CO2),
+                new GamePiece(PieceType.CO2)));
         Collections.shuffle(boardEasy);
 
         GamePiece[][] board = new GamePiece[2][3];
@@ -40,6 +40,8 @@ public class BoardGenerator {
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 3; j++) {
                     board[i][j] = iterator.next();
+                    board[i][j].setxPos(i);
+                    board[i][j].setyPos(j);
                 }
             }
         }

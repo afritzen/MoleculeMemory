@@ -25,14 +25,12 @@ public class GamePiece {
     private boolean covered;
 
     /**
-     * Constructor holding x- and y-coordinate of the piece.
-     * @param x {@link #xPos}
-     * @param y {@link #yPos}
+     * Constructor for a game piece. Every piece holds a type
+     * and is covered per default.
+     * @param type {@link #type}
      */
-    public GamePiece(int x, int y, PieceType t) {
-        this.xPos = x;
-        this.yPos = y;
-        this.type = t;
+    public GamePiece(PieceType type) {
+        this.type = type;
         covered = true;
     }
 
@@ -52,4 +50,19 @@ public class GamePiece {
         return type;
     }
 
+    public int getxPos() {
+        return xPos;
+    }
+
+    public int getyPos() {
+        return yPos;
+    }
+
+    public void setxPos(int xPos) {
+        this.xPos = xPos;
+    }
+
+    public void setyPos(int yPos) {
+        this.yPos = yPos;
+    }
 }

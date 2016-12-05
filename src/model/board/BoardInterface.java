@@ -41,6 +41,11 @@ public interface BoardInterface {
     boolean isPieceAt(int x, int y);
 
     /**
+     * Covers both chosen pieces in case they don't match.
+     */
+    void coverChosen();
+
+    /**
      * Adds a piece to one of the two slots {@link model.board.Board#uncoveredFst}
      * and {@link model.board.Board#uncoveredSnd} to be compared after the draw is
      * finished.
@@ -48,10 +53,19 @@ public interface BoardInterface {
      */
     void setChosen(GamePiece piece);
 
+    /**
+     * Increments {@link model.board.Board#pairsFound} to keep track of
+     * all matching pairs found by the player.
+     */
+    void incrPairsFound();
+
+    GamePiece getUncoveredFst();
+    GamePiece getUncoveredSnd();
     int getBoardWidth();
     int getBoardHeight();
     GamePiece[][] getBoard();
     Difficulty getDifficulty();
+
 
 
 }

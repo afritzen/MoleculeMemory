@@ -17,6 +17,8 @@ public interface BoardViewInterface {
      */
     void uncoverPiece(int x, int y);
 
+    void coverPiece(int x, int y);
+
     /**
      * Shows a message indicating that the player successfully
      * completed the game.
