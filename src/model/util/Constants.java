@@ -18,6 +18,9 @@ public class Constants {
     public static final int SCENE_HEIGHT_GAME = 850;
     public static final double GRID_WIDTH = 800/10;
 
+    public static final int ALERT_WIDTH = 300;
+    public static final int ALERT_HEIGHT = 150;
+
     public static final int PIECE_SIZE = 75;
 
     // Controller-related constants

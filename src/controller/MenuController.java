@@ -4,6 +4,7 @@ import model.board.Board;
 import model.util.Difficulty;
 import view.MenuViewInterface;
 import view.BoardView;
+import view.PlayerNameAlert;
 
 /**
  * Controller for the main menu view.

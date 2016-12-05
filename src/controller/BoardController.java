@@ -21,6 +21,11 @@ public class BoardController {
      * Interface for controller-view interaction.
      */
     private BoardViewInterface boardView;
+    /**
+     * Indicates whether the player is allowed to interact with
+     * the board.
+     */
+    private boolean active;
 
     /**
      * Assigns handlers to all buttons from the view and connects them to
@@ -31,6 +36,7 @@ public class BoardController {
     public BoardController(Board board, BoardViewInterface boardView) {
         this.board = board;
         this.boardView = boardView;
+        active = true;
         boardView.getBoardGroup().setOnMouseClicked(new BoardClickHandler());
 
         // assign event handlers to buttons
@@ -41,18 +47,6 @@ public class BoardController {
             menuController.show();
             event.consume();
         });
-    }
-
-    /**
-     * Pauses the game for a brief moment before the final piece
-     * of a pair is uncovered.
-     */
-    private void pause() {
-        try {
-            Thread.sleep(Constants.SLEEP_TIME);
-        } catch (InterruptedException ie) {
-            System.out.println("Error! Something went wrong evaluating your draw!");
-        }
     }
 
     /**
@@ -68,6 +62,10 @@ public class BoardController {
     private class BoardClickHandler implements EventHandler<MouseEvent> {
 
         public void handle(MouseEvent event) {
+
+            if(!active) {
+                return;
+            }
 
             // get mouse click position relative to piece size
             int eventX = ((int) event.getX()) / Constants.PIECE_SIZE;
@@ -97,12 +95,12 @@ public class BoardController {
                         board.resetPair();
                         // TODO: visualize
                         System.out.println("You found a match!");
-                    } else {
-                        System.out.println("No match found ...");
                     }
 
                     if(board.allUncovered()) {
                         // TODO: visualize
+                        // no longer allow interaction with the board
+                        active = false;
                         System.out.println("GAME OVER");
                     }
 
