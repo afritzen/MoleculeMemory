@@ -59,7 +59,6 @@ public class MenuView implements MenuViewInterface{
         // main layout
         stage = new Stage();
         gridPane = new GridPane();
-//        gridPane.setGridLinesVisible(true);
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(5);
         gridPane.setVgap(5);

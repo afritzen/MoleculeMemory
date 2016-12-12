@@ -11,11 +11,13 @@ public class Constants {
     public static final String MENU_TITLE = "Molecule Memory";
     public static final String WINDOW_TITLE_MENU = "Molecule Memory - Main Menu";
     public static final String WINDOW_TITLE_BOARD = "Molecule Memory - Game";
+    public static final String WINDOW_TITLE_OPTIONS = "Optionen";
 
     public static final int SCENE_WIDTH_MENU = 800;
     public static final int SCENE_HEIGHT_MENU = 600;
     public static final int SCENE_WIDTH_GAME = 1280;
     public static final int SCENE_HEIGHT_GAME = 850;
+    public static final int SCENE_WIDTH_OPTIONS = 400;
     public static final double GRID_WIDTH = 800/10;
 
     public static final int ALERT_WIDTH = 300;

@@ -5,10 +5,9 @@ import javafx.scene.input.MouseEvent;
 import model.util.Constants;
 import model.GamePiece;
 import model.board.Board;
-import model.util.StandardControllerManager;
 import view.BoardViewInterface;
-import view.GameOverAlert;
 import view.MenuView;
+import view.alerts.GameOverAlert;
 
 /**
  * Handles all actions on the view.
@@ -45,7 +44,8 @@ public class BoardController {
         boardView.getQuitBtn().setOnAction((event) -> {
             // close game and display main menu
             boardView.getStage().close();
-            StandardControllerManager.getMenuController().show();
+            MenuController menuController = new MenuController(new MenuView(), board);
+            menuController.show();
             event.consume();
         });
     }

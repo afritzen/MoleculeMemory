@@ -177,4 +177,7 @@ public class Board implements BoardInterface{
         return difficulty;
     }
 
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
 }

@@ -1,5 +1,6 @@
-package view;
+package view.alerts;
 
+import controller.MenuController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -7,8 +8,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.board.Board;
 import model.util.Constants;
-import model.util.StandardControllerManager;
+import model.util.Difficulty;
+import view.BoardViewInterface;
+import view.MenuView;
 
 /**
  * A simple alert box that contains a text displayed to the user
@@ -33,7 +37,7 @@ public class GameOverAlert {
         backBtn.setOnAction(event -> {
             stage.close();
             boardViewInterface.getStage().close();
-            StandardControllerManager.getMenuController().show();
+            MenuController menuController = new MenuController(new MenuView(), new Board(Difficulty.EASY));
         });
 
         VBox vBox = new VBox(10);

@@ -65,6 +65,7 @@ public interface BoardInterface {
     int getBoardHeight();
     GamePiece[][] getBoard();
     Difficulty getDifficulty();
+    void setDifficulty(Difficulty difficulty);
 
 
 

@@ -4,7 +4,7 @@ import model.board.Board;
 import model.util.Difficulty;
 import view.MenuViewInterface;
 import view.BoardView;
-import view.PlayerNameAlert;
+import view.OptionsView;
 
 /**
  * Controller for the main menu view.
@@ -21,14 +21,13 @@ public class MenuController {
      * them to concrete actions.
      * @param menuView {@link #menuView}
      */
-    public MenuController(MenuViewInterface menuView) {
+    public MenuController(MenuViewInterface menuView, Board board) {
         this.menuView = menuView;
 
         // assign handlers to buttons
         menuView.getStartGameBtn().setOnAction((event) ->{
             // close main menu and start a new game
             menuView.getStage().close();
-            Board board = new Board(Difficulty.EASY);
             BoardController boardController = new BoardController(board, new BoardView(board));
             boardController.showBoardView();
             event.consume();
@@ -40,7 +39,7 @@ public class MenuController {
         }));
 
         menuView.getOptionsBtn().setOnAction(event -> {
-            //TODO
+            new OptionsController(new OptionsView(), board).show();
         });
     }
 

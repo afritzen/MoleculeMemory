@@ -3,7 +3,8 @@ package main;
 import controller.MenuController;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.util.StandardControllerManager;
+import model.board.Board;
+import model.util.Difficulty;
 import view.MenuView;
 
 /**
@@ -20,7 +21,8 @@ public class MoleculeMemoryMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        StandardControllerManager.getMenuController().show();
+        MenuController menuController = new MenuController(new MenuView(), new Board(Difficulty.EASY));
+        menuController.show();
     }
 
     /**
