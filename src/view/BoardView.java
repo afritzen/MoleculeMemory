@@ -135,14 +135,15 @@ public class BoardView implements BoardViewInterface{
         pieceGraphics[x][y].getChildren().remove(pieceGraphics[x][y].getChildren().size() - 1);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void coverPiece(int x, int y) {
- /*       if(pieceGraphics[x][y].getChildren().size() > 1) {
-            System.out.println("no need to cover");
+       if(pieceGraphics[x][y].getChildren().size() > 1) {
             return;
-        }*/
+        }
         pieceGraphics[x][y].getChildren().add(1, new GamePieceGraphic(PieceType.COVERED, x, y));
-        System.out.println("covered");
     }
 
     @Override

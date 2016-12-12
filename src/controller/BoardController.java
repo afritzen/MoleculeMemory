@@ -5,7 +5,9 @@ import javafx.scene.input.MouseEvent;
 import model.util.Constants;
 import model.GamePiece;
 import model.board.Board;
+import model.util.StandardControllerManager;
 import view.BoardViewInterface;
+import view.GameOverAlert;
 import view.MenuView;
 
 /**
@@ -43,8 +45,7 @@ public class BoardController {
         boardView.getQuitBtn().setOnAction((event) -> {
             // close game and display main menu
             boardView.getStage().close();
-            MenuController menuController = new MenuController(new MenuView());
-            menuController.show();
+            StandardControllerManager.getMenuController().show();
             event.consume();
         });
     }
@@ -98,16 +99,14 @@ public class BoardController {
                     }
 
                     if(board.allUncovered()) {
-                        // TODO: visualize
                         // no longer allow interaction with the board
                         active = false;
-                        System.out.println("GAME OVER");
+                        GameOverAlert.displayMe(boardView);
                     }
 
                 }
             }
         }
     }
-
 
 }
