@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -33,6 +34,7 @@ public class OptionsView implements OptionsViewInterface, Observer{
     private RadioButton bothBtn;
     private Text optionsHeadlineSize;
     private Text optionsHeadlineType;
+    private TextField enterName;
 
     /**
      * Provides a simple pane showing two options: difficulty and piece types.
@@ -79,8 +81,11 @@ public class OptionsView implements OptionsViewInterface, Observer{
         bothBtn.setToggleGroup(groupType);
         lewisBtn.setSelected(true);
 
+        enterName = new TextField();
+        enterName.setPromptText("Spielername");
+
         HBox navOpt = new HBox(5);
-        navOpt.getChildren().addAll(backBtn, applyBtn);
+        navOpt.getChildren().addAll(enterName, backBtn, applyBtn);
 
         VBox vBox = new VBox(20);
         vBox.getChildren().addAll(optionsHeadlineSize, sizeOpt, optionsHeadlineType, typeOpt, navOpt);

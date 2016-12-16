@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.GamePiece;
 import model.board.BoardInterface;
+import model.util.Commands;
 import model.util.Constants;
 import model.util.PieceType;
 import java.util.Observable;
@@ -126,10 +127,13 @@ public class BoardView implements BoardViewInterface, Observer{
     @Override
     public void update(Observable o, Object arg) {
 
-        //TODO: find better solution, e.g. ENUMS!
-        if(arg.toString().equals("start")) {
-            initializeBoardView();
-            showGame();
+        if(arg instanceof Commands) {
+
+            if(arg.equals(Commands.START_GAME)) {
+                initializeBoardView();
+                showGame();
+            }
+
         } else if (arg instanceof GamePiece) {
 
             if (!((GamePiece) arg).isCovered()) {

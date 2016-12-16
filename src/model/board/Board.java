@@ -1,6 +1,7 @@
 package model.board;
 
 import model.GamePiece;
+import model.util.Commands;
 import model.util.Difficulty;
 
 import java.awt.*;
@@ -78,7 +79,7 @@ public class Board extends Observable implements BoardInterface {
                 break;
         }
         setChanged();
-        notifyObservers("start");
+        notifyObservers(Commands.START_GAME);
     }
 
     /**
