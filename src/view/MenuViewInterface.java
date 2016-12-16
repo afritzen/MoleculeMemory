@@ -3,6 +3,8 @@ package view;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.util.Observable;
+
 public interface MenuViewInterface {
 
     /**
@@ -13,6 +15,5 @@ public interface MenuViewInterface {
     Button getStartGameBtn();
     Button getQuitGameBtn();
     Button getOptionsBtn();
-    Stage getStage();
 
 }

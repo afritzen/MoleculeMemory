@@ -11,6 +11,12 @@ import model.GamePiece;
 public interface BoardViewInterface {
 
     /**
+     * Sets up the graphics for a new game after the {@link model.board.Board}
+     * has been initialized.
+     */
+    void initializeBoardView();
+
+    /**
      * Shows the picture for an uncovered piece.
      * @param x x-coordinate of the piece
      * @param y y-coordinate of the piece
@@ -36,11 +42,5 @@ public interface BoardViewInterface {
      */
     void showGame();
 
-    Button getResetBtn();
-    Button getScoreBtn();
-    Button getQuitBtn();
-    Text getPlayerName();
-    Stage getStage();
     Group getBoardGroup();
-
 }

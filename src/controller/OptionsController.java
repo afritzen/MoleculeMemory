@@ -1,7 +1,6 @@
 package controller;
 
 import model.board.Board;
-import view.MenuView;
 import view.OptionsViewInterface;
 
 public class OptionsController {
@@ -20,13 +19,8 @@ public class OptionsController {
 
         optionsView.getBackBtn().setOnAction(event -> {
             optionsView.closeOptions();
-            new MenuController(new MenuView(), board);
+            //TODO: connect to observer pattern
             event.consume();
         });
     }
-
-    public void show() {
-        optionsView.showOptions();
-    }
-
 }

@@ -17,7 +17,7 @@ public class Constants {
     public static final int SCENE_HEIGHT_MENU = 600;
     public static final int SCENE_WIDTH_GAME = 1280;
     public static final int SCENE_HEIGHT_GAME = 850;
-    public static final int SCENE_WIDTH_OPTIONS = 400;
+    public static final int SCENE_SIZE_OPTIONS = 400;
     public static final double GRID_WIDTH = 800/10;
 
     public static final int ALERT_WIDTH = 300;

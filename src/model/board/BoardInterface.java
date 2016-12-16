@@ -6,6 +6,13 @@ import model.GamePiece;
 public interface BoardInterface {
 
     /**
+     * Creates a new board depending on the desired difficulty. Also initializes
+     * all needed attributes to a default value.
+     * @param difficulty board's difficulty, needed for proper initialization
+     */
+    void initialize(Difficulty difficulty);
+
+    /**
      * Determines whether the two uncovered pieces {@link model.board.Board#uncoveredFst} and
      * {@link model.board.Board#uncoveredSnd} have matching types.
      * @return pairs match?
@@ -24,12 +31,6 @@ public interface BoardInterface {
      * @return still a piece to uncover?
      */
     boolean drawFinished();
-
-    /**
-     * Resets {@link model.board.Board#uncoveredFst} and {@link model.board.Board#uncoveredSnd}
-     * for a new draw.
-     */
-    void resetPair();
 
     /**
      * Determines whether there is a piece at the given
@@ -64,9 +65,4 @@ public interface BoardInterface {
     int getBoardWidth();
     int getBoardHeight();
     GamePiece[][] getBoard();
-    Difficulty getDifficulty();
-    void setDifficulty(Difficulty difficulty);
-
-
-
 }

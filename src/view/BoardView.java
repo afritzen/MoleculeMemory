@@ -11,15 +11,20 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.GamePiece;
+import model.board.BoardInterface;
 import model.util.Constants;
 import model.util.PieceType;
-import model.board.BoardInterface;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
- * The view for the main game showing the board and a timer.
+ * The view for the main game showing the board itself and a timer.
+ * Since this view implements the Observer interface, it is automatically
+ * updated by specific changes in the model (e.g. covering/uncovering a piece).
  */
 @SuppressWarnings("FieldCanBeLocal")
-public class BoardView implements BoardViewInterface{
+public class BoardView implements BoardViewInterface, Observer{
 
      /**
      * Interface for interaction between model and view
@@ -64,23 +69,28 @@ public class BoardView implements BoardViewInterface{
     private Group boardGroup;
 
     /**
-     * Initializes the board and sets up the game scene.
+     * Initializes important components to be safe, graphics are
+     * rendered separately.
      */
     public BoardView(BoardInterface boardInterface) {
 
         this.boardInterface = boardInterface;
+        boardGroup = new Group();
+        stage = new Stage();
+    }
+
+    @Override
+    public void initializeBoardView() {
+
         //main layout
         pieceGraphics = new Group[boardInterface.getBoardWidth()][boardInterface.getBoardHeight()];
-        stage = new Stage();
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(5);
         gridPane.setVgap(5);
         gridPane.setPadding(new Insets(25, 25, 25, 25));
-        //gridPane.setGridLinesVisible(true);
 
         // graphics for the board itself
-        boardGroup = new Group();
         for(int i = 0; i < boardInterface.getBoardWidth(); i++) {
             for(int j = 0; j < boardInterface.getBoardHeight(); j++) {
                 Group pieceGroup = new Group();
@@ -113,13 +123,30 @@ public class BoardView implements BoardViewInterface{
         scene = new Scene(gridPane, Constants.SCENE_WIDTH_GAME, Constants.SCENE_HEIGHT_GAME);
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+
+        //TODO: find better solution, e.g. ENUMS!
+        if(arg.toString().equals("start")) {
+            initializeBoardView();
+            showGame();
+        } else if (arg instanceof GamePiece) {
+
+            if (!((GamePiece) arg).isCovered()) {
+                uncoverPiece(((GamePiece) arg).getxPos(), ((GamePiece) arg).getyPos());
+            } else {
+                coverPiece(((GamePiece) arg).getxPos(), ((GamePiece) arg).getyPos());
+            }
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void showGame() {
-        stage.setTitle(Constants.WINDOW_TITLE_BOARD);
         stage = new Stage();
+        stage.setTitle(Constants.WINDOW_TITLE_BOARD);
         stage.setScene(scene);
         stage.show();
     }
@@ -157,32 +184,8 @@ public class BoardView implements BoardViewInterface{
     }
 
     @Override
-    public Button getResetBtn() {
-        return resetBtn;
-    }
-
-    @Override
-    public Button getScoreBtn() {
-        return scoreBtn;
-    }
-
-    @Override
-    public Button getQuitBtn() {
-        return quitBtn;
-    }
-
-    @Override
-    public Text getPlayerName() {
-        return playerName;
-    }
-
-    @Override
-    public Stage getStage() {
-        return stage;
-    }
-
-    @Override
     public Group getBoardGroup() {
         return boardGroup;
     }
+
 }

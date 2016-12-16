@@ -1,12 +1,17 @@
 package model.board;
 
-import model.util.Difficulty;
 import model.GamePiece;
+import model.util.Difficulty;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Observable;
 
 /**
- * Represents a memory board with variable size.
+ * Represents a memory board with variable size, consisting of a set of
+ * {@link model.GamePiece} objects.
  */
-public class Board implements BoardInterface{
+public class Board extends Observable implements BoardInterface {
 
     /**
      * The board itself as a 2d array of GamePiece objects.
@@ -42,11 +47,15 @@ public class Board implements BoardInterface{
     private int pairsFound;
 
     /**
-     * Assigns difficulty and generates board depending on it.
-     * @param d {@link #difficulty}
+     * Default constructor, not needed in this case since initialization
+     * has to occur separately.
      */
-    public Board(Difficulty d) {
-        this.difficulty = d;
+    public Board(){}
+
+    @Override
+    public void initialize(Difficulty difficulty) {
+
+        this.difficulty = difficulty;
         // no pieces uncovered yet, no pairs found
         uncoveredFst = null;
         uncoveredSnd = null;
@@ -68,6 +77,8 @@ public class Board implements BoardInterface{
                 this.numPairs = 3;
                 break;
         }
+        setChanged();
+        notifyObservers("start");
     }
 
     /**
@@ -94,10 +105,6 @@ public class Board implements BoardInterface{
         return uncoveredFst != null && uncoveredSnd != null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void resetPair() {
         uncoveredFst = null;
         uncoveredSnd = null;
@@ -123,8 +130,13 @@ public class Board implements BoardInterface{
         if(uncoveredFst == null || uncoveredSnd == null) {
             return;
         }
-        board[uncoveredFst.getxPos()][uncoveredFst.getyPos()].cover();
-        board[uncoveredSnd.getxPos()][uncoveredSnd.getyPos()].cover();
+        uncoveredFst.cover();
+        uncoveredSnd.cover();
+        setChanged();
+        notifyObservers(uncoveredFst);
+        setChanged();
+        notifyObservers(uncoveredSnd);
+        resetPair();
     }
 
     /**
@@ -134,8 +146,14 @@ public class Board implements BoardInterface{
     public void setChosen(GamePiece piece) {
         if(uncoveredFst != null) {
             uncoveredSnd = piece;
+            uncoveredSnd.uncover();
+            setChanged();
+            notifyObservers(uncoveredSnd);
         } else {
             uncoveredFst = piece;
+            uncoveredFst.uncover();
+            setChanged();
+            notifyObservers(uncoveredFst);
         }
     }
 
@@ -170,11 +188,6 @@ public class Board implements BoardInterface{
     @Override
     public GamePiece[][] getBoard() {
         return board;
-    }
-
-    @Override
-    public Difficulty getDifficulty() {
-        return difficulty;
     }
 
     public void setDifficulty(Difficulty difficulty) {

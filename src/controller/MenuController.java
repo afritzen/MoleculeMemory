@@ -3,33 +3,18 @@ package controller;
 import model.board.Board;
 import model.util.Difficulty;
 import view.MenuViewInterface;
-import view.BoardView;
-import view.OptionsView;
 
 /**
- * Controller for the main menu view.
+ * Controller for the main menu view. Communication between model and corresponding
+ * view is managed here.
  */
 public class MenuController {
 
-    /**
-     * Interface for controller-view interaction.
-     */
-    private MenuViewInterface menuView;
+   public MenuController(MenuViewInterface menuView, Board board) {
 
-    /**
-     * Assigns handlers to all buttons of the view and connects
-     * them to concrete actions.
-     * @param menuView {@link #menuView}
-     */
-    public MenuController(MenuViewInterface menuView, Board board) {
-        this.menuView = menuView;
-
-        // assign handlers to buttons
         menuView.getStartGameBtn().setOnAction((event) ->{
-            // close main menu and start a new game
-            menuView.getStage().close();
-            BoardController boardController = new BoardController(board, new BoardView(board));
-            boardController.showBoardView();
+            // starts a new game and passes update to view via model
+            board.initialize(Difficulty.EASY);
             event.consume();
         });
 
@@ -37,14 +22,5 @@ public class MenuController {
             // quits the application
             System.exit(0);
         }));
-
-        menuView.getOptionsBtn().setOnAction(event -> {
-            new OptionsController(new OptionsView(), board).show();
-        });
     }
-
-    public void show() {
-        menuView.showMainMenu();
-    }
-
 }

@@ -15,7 +15,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.util.Constants;
 
-public class OptionsView implements OptionsViewInterface{
+import java.util.Observable;
+import java.util.Observer;
+
+public class OptionsView implements OptionsViewInterface, Observer{
 
     private Stage stage;
     private Scene scene;
@@ -31,7 +34,11 @@ public class OptionsView implements OptionsViewInterface{
     private Text optionsHeadlineSize;
     private Text optionsHeadlineType;
 
+    /**
+     * Provides a simple pane showing two options: difficulty and piece types.
+     */
     public OptionsView() {
+
         // main layout
         stage = new Stage();
         gridPane = new GridPane();
@@ -79,8 +86,13 @@ public class OptionsView implements OptionsViewInterface{
         vBox.getChildren().addAll(optionsHeadlineSize, sizeOpt, optionsHeadlineType, typeOpt, navOpt);
         gridPane.add(vBox, 0, 0);
 
-        scene = new Scene(gridPane, Constants.SCENE_WIDTH_OPTIONS, Constants.SCENE_WIDTH_OPTIONS);
+        scene = new Scene(gridPane, Constants.SCENE_SIZE_OPTIONS, Constants.SCENE_SIZE_OPTIONS);
 
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        //TODO
     }
 
     /**
@@ -131,4 +143,5 @@ public class OptionsView implements OptionsViewInterface{
     public RadioButton getBothBtn() {
         return bothBtn;
     }
+
 }

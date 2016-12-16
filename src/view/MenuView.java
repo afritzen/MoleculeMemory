@@ -56,6 +56,7 @@ public class MenuView implements MenuViewInterface{
      * player has as he starts the application.
      */
     public MenuView() {
+
         // main layout
         stage = new Stage();
         gridPane = new GridPane();
@@ -93,11 +94,6 @@ public class MenuView implements MenuViewInterface{
         stage.setTitle(Constants.WINDOW_TITLE_MENU);
         stage.setScene(scene);
         stage.show();
-    }
-
-    @Override
-    public Stage getStage() {
-        return stage;
     }
 
     @Override
