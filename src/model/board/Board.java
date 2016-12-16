@@ -187,8 +187,9 @@ public class Board extends Observable implements BoardInterface {
      * {@inheritDoc}
      */
     @Override
-    public void setNewOptions(Difficulty difficulty) {
+    public void setNewOptions(Difficulty difficulty, String playerName) {
         this.difficulty = difficulty;
+        this.playerName = playerName;
         setChanged();
         notifyObservers(Commands.APPLY_OPTIONS);
     }

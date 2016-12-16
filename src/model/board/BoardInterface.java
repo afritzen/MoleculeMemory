@@ -71,7 +71,7 @@ public interface BoardInterface {
      * {@link model.board.Board#boardWidth} and {@link model.board.Board#boardHeight}.
      * @param difficulty new difficulty chosen by player
      */
-    void setNewOptions(Difficulty difficulty);
+    void setNewOptions(Difficulty difficulty, String playerName);
 
     String getPlayerName();
     GamePiece getUncoveredFst();

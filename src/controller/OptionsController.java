@@ -17,7 +17,8 @@ public class OptionsController {
         //assign event handlers
         optionsView.getApplyBtn().setOnAction(event -> {
             // apply new attributes to model
-            board.setNewOptions((Difficulty) optionsView.getGroupSize().getSelectedToggle().getUserData());
+            board.setNewOptions((Difficulty) optionsView.getGroupSize().getSelectedToggle().getUserData(),
+                    optionsView.getEnterName().getText());
             event.consume();
         });
 
