@@ -69,7 +69,6 @@ public class Board extends Observable implements BoardInterface {
      */
     @Override
     public void load() {
-        initialize();
         setChanged();
         notifyObservers(Commands.START_GAME);
     }
@@ -188,11 +187,8 @@ public class Board extends Observable implements BoardInterface {
      * {@inheritDoc}
      */
     @Override
-    public void setNewOptions(Difficulty difficulty, Point size, String playerName) {
-        this.boardWidth = size.x;
-        this.boardHeight = size.y;
+    public void setNewOptions(Difficulty difficulty) {
         this.difficulty = difficulty;
-        this.playerName = playerName;
         setChanged();
         notifyObservers(Commands.APPLY_OPTIONS);
     }

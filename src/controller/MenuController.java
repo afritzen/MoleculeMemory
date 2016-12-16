@@ -13,6 +13,7 @@ public class MenuController {
 
         menuView.getStartGameBtn().setOnAction((event) ->{
             // starts a new game and passes update to view via model
+            board.initialize();
             board.load();
             event.consume();
         });

@@ -19,6 +19,5 @@ public interface OptionsViewInterface {
     Button getBackBtn();
     Button getApplyBtn();
     TextField getEnterName();
-    ToggleGroup getGroupType();
     ToggleGroup getGroupSize();
 }

@@ -70,9 +70,8 @@ public interface BoardInterface {
      * Assigns new values to the attributes {@link model.board.Board#difficulty},
      * {@link model.board.Board#boardWidth} and {@link model.board.Board#boardHeight}.
      * @param difficulty new difficulty chosen by player
-     * @param size new size, represented as a point
      */
-    void setNewOptions(Difficulty difficulty, Point size, String playerName);
+    void setNewOptions(Difficulty difficulty);
 
     String getPlayerName();
     GamePiece getUncoveredFst();
