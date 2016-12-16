@@ -34,11 +34,13 @@ public class MainController {
 
         // add all needed observers
         board.addObserver(boardView);
-        board.addObserver(optionsView);
-        board.addObserver(boardView);
 
-        // assign handlers
-        boardView.getBoardGroup().setOnMouseClicked(new BoardClickHandler(boardView, board));
+        // assign handlers and listeners for user input
+        boardView.getBoardGroup().setOnMouseClicked(new BoardClickHandler(board));
+
+        boardView.getQuitBtn().setOnAction(event -> {
+            boardView.closeGame();
+        });
 
         menuView.getOptionsBtn().setOnAction(event-> {
             optionsView.showOptions();

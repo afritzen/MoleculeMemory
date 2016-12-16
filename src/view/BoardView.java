@@ -53,10 +53,6 @@ public class BoardView implements BoardViewInterface, Observer{
      */
     private VBox gameBtns;
     /**
-     * Button for resetting the board and score.
-     */
-    private Button resetBtn;
-    /**
      * Button for viewing the current highscore list.
      */
     private Button scoreBtn;
@@ -77,6 +73,9 @@ public class BoardView implements BoardViewInterface, Observer{
 
         this.boardInterface = boardInterface;
         boardGroup = new Group();
+        playerName = new Text(boardInterface.getPlayerName());
+        scoreBtn = new Button("Highscore");
+        quitBtn = new Button("Quit");
         stage = new Stage();
     }
 
@@ -105,23 +104,19 @@ public class BoardView implements BoardViewInterface, Observer{
 
         gridPane.add(boardGroup, 0, 0);
 
-        playerName = new Text("Player's name");
         playerName.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
         gridPane.add(playerName, 0, 2);
 
         // organize buttons
-        resetBtn = new Button("Reset");
-        resetBtn.setPrefWidth(70);
-        scoreBtn = new Button("Highscore");
         scoreBtn.setPrefWidth(70);
-        quitBtn = new Button("Quit");
         quitBtn.setPrefWidth(70);
         gameBtns = new VBox(10);
         gameBtns.setAlignment(Pos.TOP_RIGHT);
-        gameBtns.getChildren().addAll(resetBtn, scoreBtn, quitBtn);
+        gameBtns.getChildren().addAll(scoreBtn, quitBtn);
         gridPane.add(gameBtns, 2, 0);
 
         scene = new Scene(gridPane, Constants.SCENE_WIDTH_GAME, Constants.SCENE_HEIGHT_GAME);
+        System.out.println(boardInterface.getDifficulty());
     }
 
     @Override
@@ -132,6 +127,9 @@ public class BoardView implements BoardViewInterface, Observer{
             if(arg.equals(Commands.START_GAME)) {
                 initializeBoardView();
                 showGame();
+
+            } else if(arg.equals(Commands.APPLY_OPTIONS)) {
+                playerName.setText(boardInterface.getPlayerName());
             }
 
         } else if (arg instanceof GamePiece) {
@@ -153,6 +151,14 @@ public class BoardView implements BoardViewInterface, Observer{
         stage.setTitle(Constants.WINDOW_TITLE_BOARD);
         stage.setScene(scene);
         stage.show();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void closeGame() {
+        stage.close();
     }
 
     /**
@@ -192,4 +198,8 @@ public class BoardView implements BoardViewInterface, Observer{
         return boardGroup;
     }
 
+    @Override
+    public Button getQuitBtn() {
+        return quitBtn;
+    }
 }

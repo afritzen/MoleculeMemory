@@ -42,5 +42,11 @@ public interface BoardViewInterface {
      */
     void showGame();
 
+    /**
+     * Closes the stage of the board view.
+     */
+    void closeGame();
+
+    Button getQuitBtn();
     Group getBoardGroup();
 }

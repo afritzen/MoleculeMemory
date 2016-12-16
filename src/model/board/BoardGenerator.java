@@ -1,6 +1,8 @@
 package model.board;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import model.GamePiece;
+import model.util.Constants;
 import model.util.PieceType;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,27 +15,47 @@ import java.util.Iterator;
 public class BoardGenerator {
 
     /**
-     * Default constructor, not needed.
+     * Contains all pieces that belong to a board with easy difficulty.
      */
-    public BoardGenerator(){}
+    private ArrayList<GamePiece> boardEasy;
+    /**
+     * Contains all pieces that belong to a board with medium difficulty.
+     */
+    private ArrayList<GamePiece> boardMedium;
+    /**
+     * Contains all pieces that belong to a board with hard difficulty.
+     */
+    private ArrayList<GamePiece> boardHard;
+    private Iterator<GamePiece> iterator;
 
     /**
-     * Generates a board form a list of game pieces, which has been shuffled before to
-     * guarantee that the pairs positions will differ everytime a new game is started.
-     * This method only generates a very easy board for beginners who just got into the game.
-     * @return the board, a 2d array consisting of GamePiece objects
+     * Fills all array lists with content for board generation.
      */
-    public static GamePiece[][] generateEasyBoard() {
+    public BoardGenerator(){
 
-        // create list of all pieces and shuffle it
-        ArrayList<GamePiece> boardEasy = new ArrayList<>();
+        boardEasy = new ArrayList<>();
         boardEasy.addAll(Arrays.asList(new GamePiece(PieceType.H2O), new GamePiece(PieceType.H2O),
                 new GamePiece(PieceType.N2), new GamePiece(PieceType.N2), new GamePiece(PieceType.CO2),
                 new GamePiece(PieceType.CO2)));
-        Collections.shuffle(boardEasy);
 
+        //TODO: fill!
+        boardMedium = new ArrayList<>();
+        boardHard = new ArrayList<>();
+
+    }
+
+    /**
+     * Generates a board form a list of game pieces, which has been shuffled before to
+     * guarantee that the pairs positions will differ every time a new game is started.
+     * This method only generates a very easy board for beginners who just got into the game.
+     * @return the board, a 2d array consisting of GamePiece objects
+     */
+    public GamePiece[][] generateEasyBoard() {
+
+        // shuffle list of all pieces
+        Collections.shuffle(boardEasy);
         GamePiece[][] board = new GamePiece[2][3];
-        Iterator<GamePiece> iterator = boardEasy.iterator();
+        iterator = boardEasy.iterator();
 
         // push randomized list objects to final board
         while (iterator.hasNext()) {
@@ -48,6 +70,46 @@ public class BoardGenerator {
         return board;
     }
 
+    /**
+     * {@link #generateEasyBoard()}.
+     */
+    public GamePiece[][] generateMediumBoard() {
 
+        Collections.shuffle(boardMedium);
+        GamePiece[][] board = new GamePiece[10][10];
+        iterator = boardMedium.iterator();
+
+        while (iterator.hasNext()) {
+            for(int i = 0; i < Constants.BOARD_MEDIUM_SIZE; i++) {
+                for(int j = 0; j < Constants.BOARD_MEDIUM_SIZE; j++)  {
+                    board[i][j] = iterator.next();
+                    board[i][j].setxPos(i);
+                    board[i][j].setyPos(j);
+                }
+            }
+        }
+        return board;
+    }
+
+    /**
+     * {@link #generateEasyBoard()}.
+     */
+    public GamePiece[][] generateHardBoard() {
+
+        Collections.shuffle(boardHard);
+        GamePiece[][] board = new GamePiece[20][20];
+        iterator = boardHard.iterator();
+
+        while (iterator.hasNext()) {
+            for(int i = 0; i < Constants.BOARD_HARD_SIZE; i++) {
+                for(int j = 0; j < Constants.BOARD_HARD_SIZE; j++)  {
+                    board[i][j] = iterator.next();
+                    board[i][j].setxPos(i);
+                    board[i][j].setyPos(j);
+                }
+            }
+        }
+        return board;
+    }
 
 }

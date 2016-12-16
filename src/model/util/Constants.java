@@ -7,7 +7,6 @@ package model.util;
 public class Constants {
 
     // View-related constants
-
     public static final String MENU_TITLE = "Molecule Memory";
     public static final String WINDOW_TITLE_MENU = "Molecule Memory - Main Menu";
     public static final String WINDOW_TITLE_BOARD = "Molecule Memory - Game";
@@ -25,10 +24,11 @@ public class Constants {
 
     public static final int PIECE_SIZE = 75;
 
-    // Controller-related constants
+    public static final String DEFAULT_PLAYER_NAME = " Henry Le Chatelier";
 
-    public static final int SLEEP_TIME = 500;
-
-
+    // Model-related constants
+    public static final int BOARD_SMALL_SIZE = 5;
+    public static final int BOARD_MEDIUM_SIZE = 10;
+    public static final int BOARD_HARD_SIZE = 20;
 
 }

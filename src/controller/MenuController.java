@@ -1,7 +1,6 @@
 package controller;
 
 import model.board.Board;
-import model.util.Difficulty;
 import view.MenuViewInterface;
 
 /**
@@ -14,7 +13,7 @@ public class MenuController {
 
         menuView.getStartGameBtn().setOnAction((event) ->{
             // starts a new game and passes update to view via model
-            board.initialize(Difficulty.EASY);
+            board.load();
             event.consume();
         });
 

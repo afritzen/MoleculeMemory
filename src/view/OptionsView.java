@@ -14,12 +14,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.util.Commands;
 import model.util.Constants;
+import model.util.Difficulty;
 
+import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class OptionsView implements OptionsViewInterface, Observer{
+public class OptionsView implements OptionsViewInterface {
 
     private Stage stage;
     private Scene scene;
@@ -35,6 +38,8 @@ public class OptionsView implements OptionsViewInterface, Observer{
     private Text optionsHeadlineSize;
     private Text optionsHeadlineType;
     private TextField enterName;
+    private final ToggleGroup groupType;
+    private final ToggleGroup groupSize;
 
     /**
      * Provides a simple pane showing two options: difficulty and piece types.
@@ -50,24 +55,31 @@ public class OptionsView implements OptionsViewInterface, Observer{
         gridPane.setPadding(new Insets(25, 25, 25, 25));
 
         // scene title
-        optionsHeadlineSize = new Text("Feldgröße:");
+        optionsHeadlineSize = new Text("Field size:");
         optionsHeadlineSize.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
-        optionsHeadlineType = new Text("Kartentypen:");
+        optionsHeadlineType = new Text("Piece types:");
         optionsHeadlineType.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
 
-        easyBtn = new RadioButton("Klein");
-        mediumBtn = new RadioButton("Mittel");
-        hardBtn = new RadioButton("Groß");
-        sumBtn = new RadioButton("Summenformel");
-        lewisBtn = new RadioButton("Lewis-Formel");
-        bothBtn = new RadioButton("Alles");
-        backBtn = new Button("Schließen");
-        applyBtn = new Button("Anwenden");
+        easyBtn = new RadioButton("Small");
+        easyBtn.setUserData(new Point(2,3));
+        mediumBtn = new RadioButton("Medium");
+        mediumBtn.setUserData(new Point(10,10));
+        hardBtn = new RadioButton("Large");
+        hardBtn.setUserData(new Point(20,20));
+        sumBtn = new RadioButton("Sum formula");
+        sumBtn.setUserData(Difficulty.EASY);
+        lewisBtn = new RadioButton("Lewis-Formula");
+        lewisBtn.setUserData(Difficulty.MEDIUM);
+        bothBtn = new RadioButton("All");
+        bothBtn.setUserData(Difficulty.HARD);
+
+        backBtn = new Button("Close");
+        applyBtn = new Button("Apply");
 
         //organize buttons and set toggle groups for radio buttons
         HBox sizeOpt = new HBox(10);
         sizeOpt.getChildren().addAll(easyBtn, mediumBtn, hardBtn);
-        final ToggleGroup groupSize = new ToggleGroup();
+        groupSize = new ToggleGroup();
         easyBtn.setToggleGroup(groupSize);
         mediumBtn.setToggleGroup(groupSize);
         hardBtn.setToggleGroup(groupSize);
@@ -75,14 +87,14 @@ public class OptionsView implements OptionsViewInterface, Observer{
 
         HBox typeOpt = new HBox(10);
         typeOpt.getChildren().addAll(sumBtn, lewisBtn, bothBtn);
-        final ToggleGroup groupType = new ToggleGroup();
+        groupType = new ToggleGroup();
         sumBtn.setToggleGroup(groupType);
         lewisBtn.setToggleGroup(groupType);
         bothBtn.setToggleGroup(groupType);
         lewisBtn.setSelected(true);
 
         enterName = new TextField();
-        enterName.setPromptText("Spielername");
+        enterName.setPromptText("Player name");
 
         HBox navOpt = new HBox(5);
         navOpt.getChildren().addAll(enterName, backBtn, applyBtn);
@@ -93,11 +105,6 @@ public class OptionsView implements OptionsViewInterface, Observer{
 
         scene = new Scene(gridPane, Constants.SCENE_SIZE_OPTIONS, Constants.SCENE_SIZE_OPTIONS);
 
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        //TODO
     }
 
     /**
@@ -125,28 +132,18 @@ public class OptionsView implements OptionsViewInterface, Observer{
         return applyBtn;
     }
 
-    public RadioButton getEasyBtn() {
-        return easyBtn;
+    public TextField getEnterName() {
+        return enterName;
     }
 
-    public RadioButton getMediumBtn() {
-        return mediumBtn;
+    @Override
+    public ToggleGroup getGroupType() {
+        return groupType;
     }
 
-    public RadioButton getHardBtn() {
-        return hardBtn;
-    }
-
-    public RadioButton getSumBtn() {
-        return sumBtn;
-    }
-
-    public RadioButton getLewisBtn() {
-        return lewisBtn;
-    }
-
-    public RadioButton getBothBtn() {
-        return bothBtn;
+    @Override
+    public ToggleGroup getGroupSize() {
+        return groupSize;
     }
 
 }

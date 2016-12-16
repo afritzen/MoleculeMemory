@@ -3,14 +3,20 @@ package model.board;
 import model.util.Difficulty;
 import model.GamePiece;
 
+import java.awt.*;
+
 public interface BoardInterface {
+
+    /**
+     * Helping method to inform the view about the beginning of a new game.
+     */
+    void load();
 
     /**
      * Creates a new board depending on the desired difficulty. Also initializes
      * all needed attributes to a default value.
-     * @param difficulty board's difficulty, needed for proper initialization
      */
-    void initialize(Difficulty difficulty);
+    void initialize();
 
     /**
      * Determines whether the two uncovered pieces {@link model.board.Board#uncoveredFst} and
@@ -60,9 +66,19 @@ public interface BoardInterface {
      */
     void incrPairsFound();
 
+    /**
+     * Assigns new values to the attributes {@link model.board.Board#difficulty},
+     * {@link model.board.Board#boardWidth} and {@link model.board.Board#boardHeight}.
+     * @param difficulty new difficulty chosen by player
+     * @param size new size, represented as a point
+     */
+    void setNewOptions(Difficulty difficulty, Point size, String playerName);
+
+    String getPlayerName();
     GamePiece getUncoveredFst();
     GamePiece getUncoveredSnd();
     int getBoardWidth();
     int getBoardHeight();
+    Difficulty getDifficulty();
     GamePiece[][] getBoard();
 }

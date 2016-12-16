@@ -1,7 +1,8 @@
 package view;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 
 public interface OptionsViewInterface {
 
@@ -17,10 +18,7 @@ public interface OptionsViewInterface {
 
     Button getBackBtn();
     Button getApplyBtn();
-    RadioButton getEasyBtn();
-    RadioButton getMediumBtn();
-    RadioButton getHardBtn();
-    RadioButton getSumBtn();
-    RadioButton getLewisBtn();
-    RadioButton getBothBtn();
+    TextField getEnterName();
+    ToggleGroup getGroupType();
+    ToggleGroup getGroupSize();
 }

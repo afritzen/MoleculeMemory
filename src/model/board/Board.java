@@ -2,10 +2,10 @@ package model.board;
 
 import model.GamePiece;
 import model.util.Commands;
+import model.util.Constants;
 import model.util.Difficulty;
 
 import java.awt.*;
-import java.util.HashMap;
 import java.util.Observable;
 
 /**
@@ -25,11 +25,11 @@ public class Board extends Observable implements BoardInterface {
     /**
      * Width of the board.
      */
-    private int width;
+    private int boardWidth;
     /**
      * Height of the board.
      */
-    private int height;
+    private int boardHeight;
     /**
      * First uncovered piece in a draw.
      */
@@ -46,40 +46,67 @@ public class Board extends Observable implements BoardInterface {
      * Pairs that have already been found during the game.
      */
     private int pairsFound;
+    /**
+     * Name of the current player.
+     */
+    private String playerName;
+    /**
+     * Used to generate a board depending on {@link #difficulty}.
+     */
+    private BoardGenerator boardGenerator;
 
     /**
-     * Default constructor, not needed in this case since initialization
-     * has to occur separately.
+     * Default constructor, only needed for setting a name and a generator in this case
+     * since the complete initialization has to occur separately.
      */
-    public Board(){}
+    public Board(){
+        playerName = Constants.DEFAULT_PLAYER_NAME;
+        boardGenerator = new BoardGenerator();
+    }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void initialize(Difficulty difficulty) {
+    public void load() {
+        initialize();
+        setChanged();
+        notifyObservers(Commands.START_GAME);
+    }
 
-        this.difficulty = difficulty;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void initialize() {
+
         // no pieces uncovered yet, no pairs found
         uncoveredFst = null;
         uncoveredSnd = null;
         pairsFound = 0;
 
+        // set default value in case no options have been applied yet
+        if (difficulty == null) {
+            difficulty = Difficulty.EASY;
+        }
+
         // adapt board and further values to difficulty
         switch (difficulty) {
             case EASY:
-                this.board = BoardGenerator.generateEasyBoard();
-                this.width = 2;
-                this.height = 3;
+                this.board = boardGenerator.generateEasyBoard();
+                this.boardWidth = 2;
+                this.boardHeight = 3;
                 this.numPairs = 3;
                 break;
             //TODO: add more difficulties!
             default:
-                this.board = BoardGenerator.generateEasyBoard();
-                this.width = 2;
-                this.height = 3;
+                this.board = boardGenerator.generateEasyBoard();
+                this.boardWidth = 2;
+                this.boardHeight = 3;
                 this.numPairs = 3;
                 break;
         }
-        setChanged();
-        notifyObservers(Commands.START_GAME);
+        System.out.println(difficulty);
     }
 
     /**
@@ -109,7 +136,6 @@ public class Board extends Observable implements BoardInterface {
     public void resetPair() {
         uncoveredFst = null;
         uncoveredSnd = null;
-
     }
 
     /**
@@ -117,7 +143,7 @@ public class Board extends Observable implements BoardInterface {
      */
     @Override
     public boolean isPieceAt(int x, int y) {
-        if(x > width || y > height) {
+        if(x > boardWidth || y > boardHeight) {
             return false;
         }
         return board[x][y] != null;
@@ -162,6 +188,19 @@ public class Board extends Observable implements BoardInterface {
      * {@inheritDoc}
      */
     @Override
+    public void setNewOptions(Difficulty difficulty, Point size, String playerName) {
+        this.boardWidth = size.x;
+        this.boardHeight = size.y;
+        this.difficulty = difficulty;
+        this.playerName = playerName;
+        setChanged();
+        notifyObservers(Commands.APPLY_OPTIONS);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void incrPairsFound() {
         pairsFound++;
     }
@@ -178,12 +217,12 @@ public class Board extends Observable implements BoardInterface {
 
     @Override
     public int getBoardWidth() {
-        return width;
+        return boardWidth;
     }
 
     @Override
     public int getBoardHeight() {
-        return height;
+        return boardHeight;
     }
 
     @Override
@@ -191,7 +230,13 @@ public class Board extends Observable implements BoardInterface {
         return board;
     }
 
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
+    @Override
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    @Override
+    public String getPlayerName() {
+        return playerName;
     }
 }

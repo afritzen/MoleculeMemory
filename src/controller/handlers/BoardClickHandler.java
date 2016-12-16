@@ -18,22 +18,16 @@ public class BoardClickHandler implements EventHandler<MouseEvent>{
      */
     private boolean active;
     /**
-     * @see view.BoardView
-     */
-    private BoardView boardView;
-    /**
      * @see model.board.Board
      */
     private Board board;
 
     /**
      * Sets up all attributes needed for handling.
-     * @param boardView {@link #boardView}
      * @param board {@link #board}
      */
-    public BoardClickHandler(BoardView boardView, Board board) {
+    public BoardClickHandler(Board board) {
 
-        this.boardView = boardView;
         this.board = board;
         this.active = true;
     }
@@ -75,7 +69,7 @@ public class BoardClickHandler implements EventHandler<MouseEvent>{
                 if(board.allUncovered()) {
                     // no longer allow interaction with the board
                     active = false;
-                    GameOverAlert.displayMe(boardView);
+                    //GameOverAlert.displayMe(boardView);
                 }
 
             }
